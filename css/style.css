@@ -1,0 +1,137 @@
+body {
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+.content {
+	padding: 0 0.75em;
+	margin: 3em auto 5em auto;
+	max-width: 45em;
+}
+
+h1, h2 {
+	font-family: 'Roboto Slab', serif;
+	font-family: 'Oswald', sans-serif;
+	font-family: 'Roboto', sans-serif;
+	font-family: 'Oswald', sans-serif;
+}
+
+h1 {
+	margin-bottom: 0.5em;
+}
+
+input,
+.button {
+	background: none;
+	padding: 0.35em 0.5em;
+	border: 0.15em solid black;
+	border-radius: 0.35em;
+}
+
+.button {
+	cursor: pointer;
+}
+
+/* Description Section */
+.description h1 {
+	margin-bottom: 0.25em;
+}
+
+.description .details {
+	margin-top: 0;
+}
+
+.description #userForm {
+	margin: 1.5em 0;
+}
+
+.description .sign-up {
+	font-size: 0.90em;
+	margin-top: 1.5em;
+}
+
+/* Past Jams Section */
+#jamResults {
+	 /*display: none;  /* REMOVE THIS LATER */
+}
+
+#jamResults h2 {
+	text-align: center;
+	background: gray;
+	padding: 0.5em 0;
+	margin: 1.25em 0 0 0;
+	border-top: 0.5em solid black;
+}
+
+ul#pastJams {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul#pastJams li {
+	overflow: auto;
+	padding: 1em 0;
+	border-bottom: 0.05em solid black;
+}
+
+ul#pastJams .jam-avatar {
+	float: left;
+	margin-right: 1em;
+	max-width: 8.4375em;
+	max-height: 8.4375em;
+}
+
+ul#pastJams .jam-details {
+	margin-left: 9.8125em;
+}
+
+	ul#pastJams p {
+		margin: 0 0 0.4em 0;
+	}
+
+		ul#pastJams .jam-title,
+		ul#pastJams .jam-artist {
+			font-weight: 700;
+		}
+
+		ul#pastJams .jam-title {
+			font-size: 1.5em;
+			margin-bottom: 0;
+		}
+
+		ul#pastJams .jam-artist {
+			font-size: 1.25em;
+		}
+
+		ul#pastJams .jam-caption {
+			border-left: 0.25em solid gray;
+			padding-left: 0.5em;
+		}
+		
+		ul#pastJams .jam-link {
+			margin-top: 1.25em;			
+		}
+
+			ul#pastJams .jam-link a {
+				text-decoration: none;
+				font-weight: bold;
+				font-size: 0.95em;
+			}
+
+
+/* Controls Section */
+#jamResults .prev-button,
+#jamResults .next-button {
+	margin: 1em 0 1em 0;
+}
+
+#jamResults .prev-button {
+	float: left;
+	margin-left: 35%;
+}
+
+#jamResults .next-button {
+	float: right;
+	margin-right: 35%;
+}
