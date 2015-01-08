@@ -1,41 +1,64 @@
 body {
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: #252423;
+	background-image: url("../imgs/bg-image.jpg");
 }
 
-.content {
-	padding: 0 0.75em;
-	margin: 3em auto 5em auto;
+.content {	
+	margin: 0 auto 0 auto;
 	max-width: 45em;
+	background: #F9F9F9;
 }
 
 h1, h2 {
 	font-family: 'Roboto Slab', serif;
-	font-family: 'Oswald', sans-serif;
-	font-family: 'Roboto', sans-serif;
-	font-family: 'Oswald', sans-serif;
+	text-transform: uppercase;
 }
 
-h1 {
-	margin-bottom: 0.5em;
-}
-
-input,
-.button {
+input, .button {
 	background: none;
 	padding: 0.35em 0.5em;
 	border: 0.15em solid black;
 	border-radius: 0.35em;
 }
 
+.accent {
+	color: #4b10a7;
+}
+
 .button {
 	cursor: pointer;
+	color: white;	
+	background: #4b10a7;
+	font-weight: 700;	
+}
+
+.description,
+#jamResults #pastJams,
+#jamResults .controls {
+	padding: 0 1em;
 }
 
 /* Description Section */
-.description h1 {
-	margin-bottom: 0.25em;
+.description {
+	padding-bottom: 1.25em;
+	border-top: 2em solid black;
 }
+
+.description h1 {
+	padding-top: 0.5em;
+	margin-top: 0;
+	margin-bottom: 0;
+}	
+
+	.description h1:first-letter {
+		color: #4b10a7;
+		font-size: 1.5em;		
+	}	
 
 .description .details {
 	margin-top: 0;
@@ -52,34 +75,46 @@ input,
 
 /* Past Jams Section */
 #jamResults {
-	 /*display: none;  /* REMOVE THIS LATER */
+	/* display: none;  /* REMOVE THIS LATER */
 }
 
-#jamResults h2 {
+#jamResults h2 {	
+	color: white;	
+	background: #4b10a7;
 	text-align: center;
-	background: gray;
 	padding: 0.5em 0;
-	margin: 1.25em 0 0 0;
-	border-top: 0.5em solid black;
+	margin: 0;
+	border-top: 0.4em solid #FEC835;
+}
+
+	#jamResults h2 a {
+		color: #FEC835;
+	}
+
+#jamResults h2 a,
+ul#pastJams .jam-caption,
+ul#pastJams .jam-link a {
+	text-decoration: none;
+	font-size: 0.90em;
 }
 
 ul#pastJams {
 	list-style: none;
-	margin: 0;
 	padding: 0;
+	margin: 0;
 }
 
 ul#pastJams li {
-	overflow: auto;
+	overflow: hidden;
 	padding: 1em 0;
-	border-bottom: 0.05em solid black;
+	border-bottom: 0.05em solid #252423;
 }
 
 ul#pastJams .jam-avatar {
-	float: left;
-	margin-right: 1em;
+	float: left;	
 	max-width: 8.4375em;
 	max-height: 8.4375em;
+	margin-right: 1em;
 }
 
 ul#pastJams .jam-details {
@@ -90,37 +125,36 @@ ul#pastJams .jam-details {
 		margin: 0 0 0.4em 0;
 	}
 
-		ul#pastJams .jam-title,
-		ul#pastJams .jam-artist {
-			font-weight: 700;
-		}
+	ul#pastJams .jam-title,
+	ul#pastJams .jam-artist {
+		font-weight: 700;
+	}
 
-		ul#pastJams .jam-title {
-			font-size: 1.5em;
-			margin-bottom: 0;
-		}
+	ul#pastJams .jam-title {
+		font-size: 1.5em;
+		margin-bottom: 0;
+	}
 
-		ul#pastJams .jam-artist {
-			font-size: 1.25em;
-		}
+	ul#pastJams .jam-artist {
+		font-size: 1.25em;
+	}
 
-		ul#pastJams .jam-caption {
-			border-left: 0.25em solid gray;
-			padding-left: 0.5em;
-		}
-		
-		ul#pastJams .jam-link {
-			margin-top: 1.25em;			
-		}
+	ul#pastJams .jam-caption {		
+		padding-left: 0.5em;
+		border-left: 0.25em solid gray;
+	}
+	
+	ul#pastJams .jam-link {
+		margin-top: 1.25em;				
+	}
 
-			ul#pastJams .jam-link a {
-				text-decoration: none;
-				font-weight: bold;
-				font-size: 0.95em;
-			}
+/* Jam Results Controls Section */
+#jamResults .controls {
+	overflow: hidden;
+	padding-bottom: 1em;
+	border-bottom: 2em solid black;
+}
 
-
-/* Controls Section */
 #jamResults .prev-button,
 #jamResults .next-button {
 	margin: 1em 0 1em 0;

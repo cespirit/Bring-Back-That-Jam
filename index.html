@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Bring Back That Jam</title>
-    <link href='http://fonts.googleapis.com/css?family=Oswald:300,400|Roboto:400,700|Roboto+Slab' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="js/app.js"></script>
@@ -11,18 +11,18 @@
 <body>
     <div class="content">
     	<div class="description">
-	 	   	<h1>Bring Back That&nbsp;Jam</h1>
+	 	   	<h1>Bring&nbsp;Back That&nbsp;Jam</h1>
 	 	   	<p class="details">Rediscover past jams and fall in love with them all over again.</p>	    	
 	 	   	<form id="userForm">
-	 	   		<p>Enter in a <strong>This Is My Jam</strong> username below to get random jams from their past.</p>
+	 	   		<p>Enter in a <strong><span class="accent">This Is My Jam</span></strong> username below to get random jams from their past.</p>
 	 	   		<input type="text" placeholder="Type in username" required>
-	 	   		<button id="userForm-button" type="submit" class="button">Go!</button>
+	 	   		<button id="userForm-button" type="submit" class="button">Go</button>
 	 	   	</form>
 	 	   	<p class="sign-up">Don't have a This Is My Jam account? <br> Sign up <a href="https://www.thisismyjam.com">here</a>!</p>
  	   	</div>
 
  	   	<div id="jamResults">
- 	   		<h2>TeamJamPicks's Jams</h2>
+ 	   		<h2><a href="http://www.thisismyjam.com/TeamJamPicks">TeamJamPicks</a>'s Jams</h2>
 	 	   	<ul id="pastJams">
 	 	   		<li>
 		 	   		<img src="http://static03.thisismyjam.com/i/b00da509dc782d4573603412a3f38cfc_185.jpg?1410184049" class="jam-avatar" alt="young blood jam avatar">
@@ -55,8 +55,10 @@
 		 	   		</div>	 	   			
 	 	   		</li>
 	 	   	</ul>
-	 	   	<button class="prev-button prevButton button"><i class="fa fa-step-backward"></i> Prev</button>
-	 	   	<button class="next-button nextButton button">Next <i class="fa fa-step-forward"></i></button>
+	 	   	<div class="controls">
+		 	   	<button class="prev-button prevButton button"><i class="fa fa-step-backward"></i> Prev</button>
+		 	   	<button class="next-button nextButton button">Next <i class="fa fa-step-forward"></i></button>
+	 	   	</div>
  	   	</div>
     </div>
 </body>
