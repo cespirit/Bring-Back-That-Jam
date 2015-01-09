@@ -3,7 +3,6 @@ $(document).ready(function(){
 	var jamsPerPage = 60;	/* Dependent on This Is My Jam */
 	var jamsToDisplay = 3;
 	var totalJams;
-	var jams = [];
 	var jamIndices = [];
 	var jamPage = -1;
 	var username;
@@ -17,25 +16,30 @@ $(document).ready(function(){
 			return;
 		}
 
-		resetResultFields();
 		getTotalJams(username);		
-		console.log("---Timing Example---");
+
+		/* TEST: Testing 
+		totalJams = 229;
+		username = "TeamJamPicks";		
+		randomizeVariables();
+		displayPastJams();
+		*/
+
 	});
 
 	function isValidInput() {
-		if(username === "") {
-			return false;
+		if(username) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	function resetResultFields() {
 		totalJams = 0;
 		jamPage = -1;
-		jams = [];
 		jamIndices = [];
+		username = "";
 		$("#userInput").val("");
-		$("#jamResults").html("");
 	}
 
 	function getTotalJams() {
@@ -54,7 +58,7 @@ $(document).ready(function(){
 			totalJams = results.person.jamsCount;
 			
 			if(totalJams <= 0) {
-				$("#jamResults").html("<p class='info'>" + username + " has no past jams.</p>");
+				$("#jamResults").append("<p class='info'>" + username + " has no past jams.</p>");
 				return;			
 			} else {				
 				randomizeVariables();
@@ -145,10 +149,23 @@ $(document).ready(function(){
 		
 	}
 
-	function displayPastJams(results) {	
+	function displayPastJams() {	
 		console.log("displayPastJams start");
+
+		/* TEST: Testing var 
+		var results = testResults;
+		*/
+
 		/*
-		var html = "";		
+		totalJams = 0;
+		jamPage = -1;
+		jamIndices = [];
+		username = "";
+		$("#userInput").val("");
+		*/
+
+		var jam;
+		var html = "";	
 
 		var request = { 
 			page: jamPage,
@@ -163,22 +180,39 @@ $(document).ready(function(){
 			crossDomain: "true"
 		})
 		.done(function(results){
+			$("#jamResults").html("");
+						
 			html += "<h2><a href='http://www.thisismyjam.com/" + username + "'>" + username + "</a> jams</h2>";	
-
-			// TODO: Display jams 
-			console.log(results); 
-			jamIndices.forEach(function(index){
+			html += "<ul id='pastJams'>";
+			
+			jamIndices.forEach(function(index) {
 				console.log(results.jams[index]);
+				jam = results.jams[index];
+				
+				/* Construct jam info */
+				html += "<li><img src='" + jam.jamvatarMedium + "' class='jam-avatar' alt='" + jam.title + " jam avatar'>" + 
+					"<div class='jam-details'><p class='jam-title'>" + jam.title + "</p>" +
+					"<p class='jam-artist'>By " + jam.artist + "</p>" + 
+					"<p class='jam-date'>" + jam.creationDate + "</p>" +
+					"<p class='jam-caption'>" + jam.caption + "</p>" +
+					"<p class='jam-link'><a class='button' target='_blank' href='" + jam.url + "'>"  +
+					"<i class='fa fa-play-circle-o fa-lg'></i> Listen on This Is My Jam</a></p>"
+					"</div></li>";
 			});
 
+			html += "</ul>";
 			$("#jamResults").html(html);
+
+			/* Reset Variables */
+			resetResultFields();
 		})
 		.fail(function(jqXHR, error, errorThrown){
 			alert("An error occurred. Please try again later.");
 		});
-		*/
+		
 	
 		console.log("displayPastJams end");	
 		console.log("--------------------------------------");
 	}
+
 });
