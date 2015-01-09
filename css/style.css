@@ -5,6 +5,7 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-color: #0D0D0D;
+	word-wrap: break-word;	
 }
 
 .content {	
@@ -17,14 +18,13 @@ body {
 
 h1, h2 {
 	font-family: 'Roboto Slab', serif;
-	text-transform: uppercase;
 }
 
 input, .button {
 	background: white;
 	padding: 0.35em 0.5em;
-	border: 0.15em solid black;
-	border-radius: 0.35em;
+	border: 0.15em solid #310a6f;
+	border-radius: 0.45em;
 }
 
 .accent {
@@ -50,6 +50,7 @@ input, .button {
 }
 
 .description h1 {
+	text-transform: uppercase;
 	padding-top: 0.5em;
 	margin-top: 0;
 	margin-bottom: 0;
@@ -88,23 +89,23 @@ input, .button {
 
 /* Past Jams Section */
 #jamResults {
-	 display: none;  /* REMOVE THIS LATER */
+	/* display: none;  /* REMOVE THIS LATER */
 }
 
 #jamResults h2 {	
 	color: white;	
 	background: #4B10A7;
 	text-align: center;
-	padding: 0.5em 0;
+	padding: 0.5em 1em;
 	margin: 0;
 	border-top: 0.4em solid #FEC835;
 }
 
-	#jamResults h2 a {
+	#jamResults h2 a {	
+		text-decoration: none;
 		color: #FEC835;
 	}
 
-#jamResults h2 a,
 ul#pastJams .jam-caption,
 ul#pastJams .jam-link a {
 	text-decoration: none;
@@ -127,7 +128,7 @@ ul#pastJams .jam-avatar {
 	float: left;	
 	max-width: 8.4375em;
 	max-height: 8.4375em;
-	margin-right: 1em;
+	/*margin-right: 1em;*/
 }
 
 ul#pastJams .jam-details {
@@ -154,7 +155,7 @@ ul#pastJams .jam-details {
 
 	ul#pastJams .jam-caption {		
 		padding-left: 0.5em;
-		border-left: 0.25em solid gray;
+		border-left: 0.25em solid #B3B3B3;
 	}
 	
 	ul#pastJams .jam-link {
@@ -164,23 +165,26 @@ ul#pastJams .jam-details {
 /* Jam Results Controls Section */
 #jamResults .controls {
 	overflow: hidden;
+	padding-top: 1em;
 	padding-bottom: 1em;
-	
+}
+
+#jamResults .controls i {
+	margin: 0 0.5em;
 }
 
 #jamResults .prev-button,
 #jamResults .next-button {
 	margin: 1em 0 1em 0;
+	padding: 0.5em 3em;
 }
 
 #jamResults .prev-button {
 	float: left;
-	margin-left: 35%;
 }
 
 #jamResults .next-button {
 	float: right;
-	margin-right: 35%;
 }
 
 /* Attribution and copyright */
@@ -188,6 +192,21 @@ ul#pastJams .jam-details {
 	font-size: 0.75em;
 	padding: 1em;
 	text-align: center;
+}
+
+@media only screen and (max-width: 700px) {
+	ul#pastJams .jam-avatar {
+		max-width: 7.1875em;
+		max-height: 7.1875em;
+	}
+
+	ul#pastJams .jam-details {
+		margin-left: 8.1875em;
+	}
+
+		ul#pastJams p {
+			margin: 0 0 0.15em 0;
+		}
 }
 
 @media only screen and (max-width: 450px) {
@@ -200,10 +219,52 @@ ul#pastJams .jam-details {
 		padding-right: 0;
 		width: 20%;
 	}
+
+	#jamResults h2 {
+		font-size: 1.3em;
+	}
+
+	ul#pastJams .jam-avatar {
+		display: none;
+	}
+
+	ul#pastJams .jam-details {
+		margin-left: 0;
+	}
+
+	ul#pastJams .jam-title {
+		font-size: 1.3em;
+		margin-bottom: 0;
+	}
+
+	ul#pastJams .jam-artist {
+		font-size: 1.1em;
+	}
+
+	ul#pastJams .jam-date {
+		font-size: 0.9em;
+	}
+
+	ul#pastJams .jam-caption,
+	ul#pastJams .jam-link {		
+		font-size: 0.85em;
+	}
+
+	#jamResults .prev-button,
+	#jamResults .next-button {
+		margin: 1em 0 1em 0;
+		padding: 0.35em 2em;
+	}
 }
 
 @media only screen and (max-width: 345px) {
 	.description h1 {
 		font-size: 1.75em;
+	}
+
+	#jamResults .prev-button,
+	#jamResults .next-button {
+		margin: 0.5em 0 1em 0;
+		padding: 0.25em 1.5em;
 	}
 }
