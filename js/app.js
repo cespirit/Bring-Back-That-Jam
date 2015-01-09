@@ -4,6 +4,8 @@ $(document).ready(function(){
 	var jamsToDisplay = 3;
 	var totalJams;
 	var jams = [];
+	var jamIndices = [];
+	var jamPage = -1;
 	var username;
 
 	$("#userForm").submit(function(event){
@@ -16,24 +18,27 @@ $(document).ready(function(){
 		}
 
 		resetResultFields();
-		getTotalJams(username);				
+		getTotalJams(username);		
+		console.log("---Timing Example---");
 	});
 
-	var isValidInput = function() {
+	function isValidInput() {
 		if(username === "") {
 			return false;
 		}
 		return true;
-	};
+	}
 
-	var resetResultFields = function() {
+	function resetResultFields() {
 		totalJams = 0;
+		jamPage = -1;
 		jams = [];
+		jamIndices = [];
 		$("#userInput").val("");
 		$("#jamResults").html("");
-	};
+	}
 
-	var getTotalJams = function() {
+	function getTotalJams() {
 		var request = { 
 			key: "1155729500c504209f43e65fd110766512213181"
 		};
@@ -47,55 +52,103 @@ $(document).ready(function(){
 		})
 		.done(function(results) {
 			totalJams = results.person.jamsCount;
-			displayPastJams(results);
+			
+			if(totalJams <= 0) {
+				$("#jamResults").html("<p class='info'>" + username + " has no past jams.</p>");
+				return;			
+			} else {				
+				randomizeVariables();
+				displayPastJams();
+			}		
 		})
 		.fail(function(jqXHR, error, errorThrown){
 			if(jqXHR.status == 404) {
-				alert("Username " + username + " does not exist.");				
-			}
-			else {
+				alert("Username " + username + " not found.");				
+			} else {
 				alert("An error occurred. Please try again later.");
 			}
 		});		
-	};
+	}
 
 	/* Value of max is inclusive */
 	function getRandomInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
-	} 
+	}
 
-	/* Get random jams from a random page */
-	var getRandomJams = function() {
-		
-		var jamPage = 1;
-		var jamIndices = [];
+	function setJamIndices(maxIndices, maxIndex) {
+		console.log("Reached setIndices start");
 		var randomJamIndex;
-		var totalJamPages = Math.ceil(totalJams / jamsPerPage);
-		var url;
+		var j = 0;
 
-		if(totalJams < jamsToDisplay) {
-			for(var i = 0; i < totalJams; i++) {
-				jamIndices.push(i);
-			}
-		}
-		else {
-			var j = 0;
-			/* TODO: NEED TO ACCOUNT FOR NOT ENOUGH JAMS ON THE LAST PAGE...1,2,3, etc.*/
-			while(j < jamsToDisplay) {
-				randomJamIndex = getRandomInt(0, jamsPerPage - 1); 
-				if(jamIndices.indexOf(randomJamIndex) != -1) {
-					continue;	
-				}
+		console.log("Max Indices: " + maxIndices + ", maxIndex: " + maxIndex);
+
+		while(j < maxIndices) {
+			randomJamIndex = getRandomInt(0, maxIndex); 
+			if(jamIndices.indexOf(randomJamIndex) == -1) {
 				jamIndices.push(randomJamIndex);
-				j++;
-			}
+				j++;	
+			} 			
+		}	
 
-			if(totalJamPages > 1) {
+		console.log("Reached setIndices end");
+	}
+
+	/* Get random jam indices from a random page */
+	function randomizeVariables() {
+					
+		var maxIndex; 
+		var maxIndices = jamsToDisplay;
+		var totalJamPages = Math.ceil(totalJams / jamsPerPage);
+		var totalJamsLastPage = -1;
+		jamPage = 1;
+
+		/* Case: One page and not enough jams */
+		if(totalJams < jamsToDisplay) {
+			console.log("Reached randomize -- One page not enough jams");
+			maxIndex = totalJams - 1;
+			maxIndices = totalJams;
+			setJamIndices(maxIndices, maxIndex);
+			return;
+		} else {
+			/* Case: One page of jams */
+			if(totalJams <= jamsPerPage) {
+				console.log("Reached Case One page of jams");
+				maxIndex = totalJams - 1;
+				setJamIndices(maxIndices, maxIndex);
+				return;
+			} 
+			/* Case: Multiple pages of jams */
+			else {
 				jamPage = getRandomInt(1, totalJamPages);
-			}
+
+				/* Case: Last page of jams */
+				if(jamPage === totalJamPages) {
+					totalJamsLastPage = totalJams - (jamsPerPage * (totalJamPages - 1));
+
+					if(totalJamsLastPage < jamsToDisplay) {
+						jamPage -= 1;
+					} else {
+						maxIndex = totalJamsLastPage - 1;
+						setJamIndices(maxIndices, maxIndex);
+						return;
+					}
+				} 
+				
+				/* Case: Jam page has enough jams */	
+				maxIndex = jamsPerPage - 1;
+				setJamIndices(maxIndices, maxIndex);
+				//return;
+			}			
 		}
 
 		console.log("Page: ", jamPage, ", Indices: " , jamIndices);
+		
+	}
+
+	function displayPastJams(results) {	
+		console.log("displayPastJams start");
+		/*
+		var html = "";		
 
 		var request = { 
 			page: jamPage,
@@ -110,88 +163,22 @@ $(document).ready(function(){
 			crossDomain: "true"
 		})
 		.done(function(results){
-			console.log(results);
+			html += "<h2><a href='http://www.thisismyjam.com/" + username + "'>" + username + "</a> jams</h2>";	
 
-			console.log("Indices length", jamIndices.length);
-			for(var i = 0; i < jamIndices.length; i++) {				
-				jams.push(results.jams[jamIndices[i]]);
-			}
-			console.log(jams);
-		})
-		.fail(function(jqXHR, error, errorThrown){
-			/* TODO: Failure Case */
-		});
-
-		
-	};
-
-/*
-	var getFirstPageJams = function() {
-		var request = { 
-			show: "past",
-			key: "1155729500c504209f43e65fd110766512213181"
-		};
-
-		$.ajax({
-			url: "http://api.thisismyjam.com/1/" + username + "/jams.json",
-			data: request,
-			dataType: "json",
-			type: "GET",
-			crossDomain: "true"
-		})
-		.done(function(results){
-			jams = results.jams;
-			getNextPageJams(results);
-			displayPastJams();			
-		})
-		.fail(function(jqXHR, error, errorThrown){
-			if(jqXHR.status == 404) {
-				alert("Username " + username + " does not exist.");				
-			}
-			else {
-				alert("An error occurred. Please try again later.");
-			}
-		});
-		
-	};
-
-	var getNextPageJams = function(results) {
-
-		if(results.list.hasMore) {
-			$.ajax({
-				url: results.list.next,
-				dataType: "json",
-				type: "GET",
-				crossDomain: "true"
-			})
-			.done(function(nextResults) {
-				$.merge(jams, nextResults.jams);
-				getNextPageJams(nextResults);
-				
-			})
-			.fail(function(jqXHR, error, errorThrown) {			
-				console.log("Error when getting next page's jams");				
+			// TODO: Display jams 
+			console.log(results); 
+			jamIndices.forEach(function(index){
+				console.log(results.jams[index]);
 			});
-		}		
-	};
-*/
 
-	var displayPastJams = function(results) {		
-		var html = "";				
-
-		/* User has no past jams */
-		if(totalJams <= 0) {
-			html += "<p class='info'>" + username + " has no past jams.</p>"			
-		}
-		else {
-			html += "<h2><a href='http://www.thisismyjam.com/" + username + "'>" + username + "</a> jams</h2>";
-			getRandomJams();
-
-			/* TODO: WILL HAVE TO DO DISPLAY INSIDE .done() */
-			console.log(jams.length);
-		}		
-
-		$("#jamResults").html(html);
-	};
-
+			$("#jamResults").html(html);
+		})
+		.fail(function(jqXHR, error, errorThrown){
+			alert("An error occurred. Please try again later.");
+		});
+		*/
+	
+		console.log("displayPastJams end");	
+		console.log("--------------------------------------");
+	}
 });
