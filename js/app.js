@@ -27,9 +27,8 @@ $(document).ready(function(){
 	};
 
 	var resetResultFields = function() {
-		var totalJams;
-		var jams = [];
-		var username;
+		totalJams = 0;
+		jams = [];
 		$("#userInput").val("");
 		$("#jamResults").html("");
 	};
@@ -81,6 +80,7 @@ $(document).ready(function(){
 		}
 		else {
 			var j = 0;
+			/* TODO: NEED TO ACCOUNT FOR NOT ENOUGH JAMS ON THE LAST PAGE...1,2,3, etc.*/
 			while(j < jamsToDisplay) {
 				randomJamIndex = getRandomInt(0, jamsPerPage - 1); 
 				if(jamIndices.indexOf(randomJamIndex) != -1) {
@@ -95,7 +95,33 @@ $(document).ready(function(){
 			}
 		}
 
-		console.log("page: " + jamPage + ", jamIndices: " + jamIndices);	
+		console.log("Page: ", jamPage, ", Indices: " , jamIndices);
+
+		var request = { 
+			page: jamPage,
+			key: "1155729500c504209f43e65fd110766512213181"
+		};
+
+		$.ajax({
+			url: "http://api.thisismyjam.com/1/" + username + "/jams.json",
+			data: request,
+			dataType: "json",
+			type: "GET",
+			crossDomain: "true"
+		})
+		.done(function(results){
+			console.log(results);
+
+			console.log("Indices length", jamIndices.length);
+			for(var i = 0; i < jamIndices.length; i++) {				
+				jams.push(results.jams[jamIndices[i]]);
+			}
+			console.log(jams);
+		})
+		.fail(function(jqXHR, error, errorThrown){
+			/* TODO: Failure Case */
+		});
+
 		
 	};
 
@@ -160,6 +186,9 @@ $(document).ready(function(){
 		else {
 			html += "<h2><a href='http://www.thisismyjam.com/" + username + "'>" + username + "</a> jams</h2>";
 			getRandomJams();
+
+			/* TODO: WILL HAVE TO DO DISPLAY INSIDE .done() */
+			console.log(jams.length);
 		}		
 
 		$("#jamResults").html(html);
