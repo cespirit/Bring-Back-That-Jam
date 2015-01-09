@@ -88,10 +88,6 @@ input, .button {
 }
 
 /* Past Jams Section */
-#jamResults {
-	/* display: none;  /* REMOVE THIS LATER */
-}
-
 #jamResults h2 {	
 	color: white;	
 	background: #4B10A7;
@@ -128,7 +124,6 @@ ul#pastJams .jam-avatar {
 	float: left;	
 	max-width: 8.4375em;
 	max-height: 8.4375em;
-	/*margin-right: 1em;*/
 }
 
 ul#pastJams .jam-details {
