@@ -4,12 +4,12 @@ body {
 	margin: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-color: #252423;
-	background-image: url("../imgs/bg-image.jpg");
+	background-color: black;
+	background-image: url("../imgs/bg-image.jpg");	
 }
 
 .content {	
-	margin: 0 auto 0 auto;
+	margin: 0 auto;
 	max-width: 45em;
 	background: #F9F9F9;
 }
@@ -61,11 +61,11 @@ input, .button {
 	}	
 
 .description .details {
-	margin-top: 0;
+	margin-top: 0.25em;
 }
 
 .description #userForm {
-	margin: 1.5em 0;
+	margin: 1em 0;
 }
 
 .description .sign-up {
@@ -107,7 +107,7 @@ ul#pastJams {
 ul#pastJams li {
 	overflow: hidden;
 	padding: 1em 0;
-	border-bottom: 0.05em solid #252423;
+	border-bottom: 0.05em solid black;
 }
 
 ul#pastJams .jam-avatar {
@@ -152,7 +152,7 @@ ul#pastJams .jam-details {
 #jamResults .controls {
 	overflow: hidden;
 	padding-bottom: 1em;
-	border-bottom: 2em solid black;
+	
 }
 
 #jamResults .prev-button,
@@ -168,4 +168,13 @@ ul#pastJams .jam-details {
 #jamResults .next-button {
 	float: right;
 	margin-right: 35%;
+}
+
+/* Attribution and copyright */
+.attribution {
+	color: white;
+	background: black;
+	font-size: 0.75em;
+	padding: 1em;
+	text-align: center;
 }
