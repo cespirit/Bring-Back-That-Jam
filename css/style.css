@@ -31,6 +31,10 @@ input, .button {
 	color: #4b10a7;
 }
 
+.info {
+	text-align: center;
+}
+
 .button {
 	cursor: pointer;
 	color: white;	
@@ -65,6 +69,7 @@ input, .button {
 	margin-top: 0.25em;	
 }
 
+.info,
 .description #userForm {
 	margin: 1em 0;	
 	padding: 0.5em;
