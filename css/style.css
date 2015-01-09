@@ -4,14 +4,15 @@ body {
 	margin: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-color: black;
-	background-image: url("../imgs/bg-image.jpg");	
+	background-color: #0D0D0D;
 }
 
 .content {	
+	background: #F9F9F9;	
 	margin: 0 auto;
+	border-top: 2em solid #0D0D0D;
+	border-bottom: 2em solid #0D0D0D;
 	max-width: 45em;
-	background: #F9F9F9;
 }
 
 h1, h2 {
@@ -20,7 +21,7 @@ h1, h2 {
 }
 
 input, .button {
-	background: none;
+	background: white;
 	padding: 0.35em 0.5em;
 	border: 0.15em solid black;
 	border-radius: 0.35em;
@@ -33,7 +34,7 @@ input, .button {
 .button {
 	cursor: pointer;
 	color: white;	
-	background: #4b10a7;
+	background: #4B10A7;
 	font-weight: 700;	
 }
 
@@ -46,7 +47,6 @@ input, .button {
 /* Description Section */
 .description {
 	padding-bottom: 1.25em;
-	border-top: 2em solid black;
 }
 
 .description h1 {
@@ -61,12 +61,25 @@ input, .button {
 	}	
 
 .description .details {
-	margin-top: 0.25em;
+	margin-top: 0.25em;	
 }
 
 .description #userForm {
-	margin: 1em 0;
+	margin: 1em 0;	
+	padding: 0.5em;
+	background: #FEC835;
+	border: 0.15em solid #FEC835;
+	border-radius: 0.25em;
 }
+
+	.description #userForm p {
+		margin-top: 0;		
+	}
+
+	.description #userForm button {
+		padding-left: 2em;	
+		padding-right: 2em;	
+	}
 
 .description .sign-up {
 	font-size: 0.90em;
@@ -75,12 +88,12 @@ input, .button {
 
 /* Past Jams Section */
 #jamResults {
-	/* display: none;  /* REMOVE THIS LATER */
+	 display: none;  /* REMOVE THIS LATER */
 }
 
 #jamResults h2 {	
 	color: white;	
-	background: #4b10a7;
+	background: #4B10A7;
 	text-align: center;
 	padding: 0.5em 0;
 	margin: 0;
@@ -172,9 +185,25 @@ ul#pastJams .jam-details {
 
 /* Attribution and copyright */
 .attribution {
-	color: white;
-	background: black;
 	font-size: 0.75em;
 	padding: 1em;
 	text-align: center;
+}
+
+@media only screen and (max-width: 450px) {
+	.user-input {
+		width: 65%;
+	}
+
+	#userForm #userForm-button {
+		padding-left: 0;
+		padding-right: 0;
+		width: 20%;
+	}
+}
+
+@media only screen and (max-width: 345px) {
+	.description h1 {
+		font-size: 1.75em;
+	}
 }
