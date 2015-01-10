@@ -85,8 +85,7 @@ $(document).ready(function(){
 	}
 
 	/* Get random jam indices from a random page */
-	function randomizeVariables() {
-					
+	function randomizeVariables() {					
 		var maxIndex; 
 		var maxIndices = jamsToDisplay;
 		var totalJamPages = Math.ceil(totalJams / jamsPerPage);
@@ -169,7 +168,7 @@ $(document).ready(function(){
 					}
 					
 					html += "<p class='jam-link'><a class='button' target='_blank' href='" + jam.url + "'>"  +
-					"<i class='fa fa-play-circle-o fa-lg'></i> Listen on This Is My Jam</a></p>"
+					"<i class='fa fa-play-circle-o fa-lg'></i> Listen on This Is My Jam</a></p>" +
 					"</div></li>";
 			});
 
