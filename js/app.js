@@ -6,6 +6,7 @@ $(document).ready(function(){
 	var jamIndices = [];
 	var jamPage = -1;
 	var username;
+	var key = "1155729500c504209f43e65fd110766512213181";
 
 	$("#userForm").submit(function(event){
 		event.preventDefault();
@@ -15,16 +16,7 @@ $(document).ready(function(){
 			alert("Please fill in a username.");
 			return;
 		}
-
 		getTotalJams(username);		
-
-		/* TEST: Testing 
-		totalJams = 229;
-		username = "TeamJamPicks";		
-		randomizeVariables();
-		displayPastJams();
-		*/
-
 	});
 
 	function isValidInput() {
@@ -44,7 +36,7 @@ $(document).ready(function(){
 
 	function getTotalJams() {
 		var request = { 
-			key: "1155729500c504209f43e65fd110766512213181"
+			key: key
 		};
 
 		$.ajax({
@@ -52,7 +44,6 @@ $(document).ready(function(){
 			data: request,
 			dataType: "json",
 			type: "GET",
-			crossDomain: "true"
 		})
 		.done(function(results) {
 			totalJams = results.person.jamsCount;
@@ -81,11 +72,8 @@ $(document).ready(function(){
 	}
 
 	function setJamIndices(maxIndices, maxIndex) {
-		console.log("Reached setIndices start");
 		var randomJamIndex;
 		var j = 0;
-
-		console.log("Max Indices: " + maxIndices + ", maxIndex: " + maxIndex);
 
 		while(j < maxIndices) {
 			randomJamIndex = getRandomInt(0, maxIndex); 
@@ -94,8 +82,6 @@ $(document).ready(function(){
 				j++;	
 			} 			
 		}	
-
-		console.log("Reached setIndices end");
 	}
 
 	/* Get random jam indices from a random page */
@@ -109,7 +95,6 @@ $(document).ready(function(){
 
 		/* Case: One page and not enough jams */
 		if(totalJams < jamsToDisplay) {
-			console.log("Reached randomize -- One page not enough jams");
 			maxIndex = totalJams - 1;
 			maxIndices = totalJams;
 			setJamIndices(maxIndices, maxIndex);
@@ -117,7 +102,6 @@ $(document).ready(function(){
 		} else {
 			/* Case: One page of jams */
 			if(totalJams <= jamsPerPage) {
-				console.log("Reached Case One page of jams");
 				maxIndex = totalJams - 1;
 				setJamIndices(maxIndices, maxIndex);
 				return;
@@ -132,12 +116,9 @@ $(document).ready(function(){
 
 					if(totalJamsLastPage < jamsToDisplay) {
 						jamPage -= 1;
-						console.log("Reached Case Multiple Pages - Last Page Not Enough");
 					} else {
 						maxIndex = totalJamsLastPage - 1;
-						setJamIndices(maxIndices, maxIndex);		
-						console.log("Reached Case Multiple Pages - Last Page");	
-						console.log("Page: ", jamPage, ", Indices: " , jamIndices);			
+						setJamIndices(maxIndices, maxIndex);				
 						return;
 					}
 				} 
@@ -145,37 +126,18 @@ $(document).ready(function(){
 				/* Case: Jam page has enough jams */	
 				maxIndex = jamsPerPage - 1;
 				setJamIndices(maxIndices, maxIndex);
-				console.log("Reached Case Multiple Pages");
-				//return;
 			}			
 		}
-
-		console.log("Page: ", jamPage, ", Indices: " , jamIndices);
-		
 	}
 
 	function displayPastJams() {	
-		console.log("displayPastJams start");
-
-		/* TEST: Testing var 
-		var results = testResults;
-		*/
-
-		/*
-		totalJams = 0;
-		jamPage = -1;
-		jamIndices = [];
-		username = "";
-		$("#userInput").val("");
-		*/
-
 		var jam;
 		var jamDate;
 		var html = "";	
 
 		var request = { 
 			page: jamPage,
-			key: "1155729500c504209f43e65fd110766512213181"
+			key: key
 		};
 
 		$.ajax({
@@ -183,7 +145,6 @@ $(document).ready(function(){
 			data: request,
 			dataType: "json",
 			type: "GET",
-			crossDomain: "true"
 		})
 		.done(function(results){
 			$("#jamResults").html("");
@@ -192,7 +153,6 @@ $(document).ready(function(){
 			html += "<ul id='pastJams'>";
 			
 			jamIndices.forEach(function(index) {
-				console.log(results.jams[index]);
 				jam = results.jams[index];
 
 				/* Format jam date */
@@ -215,12 +175,7 @@ $(document).ready(function(){
 
 			html += "</ul>";
 			$("#jamResults").html(html);
-
-			/* Reset Variables */
 			resetResultFields();
-
-			console.log("displayPastJams end");	
-			console.log("--------------------------------------");
 		})
 		.fail(function(jqXHR, error, errorThrown){
 			alert("An error occurred. Please try again later.");
