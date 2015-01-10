@@ -56,21 +56,22 @@ $(document).ready(function(){
 		})
 		.done(function(results) {
 			totalJams = results.person.jamsCount;
-			
 			if(totalJams <= 0) {
-				$("#jamResults").append("<p class='info'>" + username + " has no past jams.</p>");
+				$("#jamResults").html("<p class='info'>" + username + " has no past jams.</p>");				
+				resetResultFields();
 				return;			
 			} else {				
 				randomizeVariables();
 				displayPastJams();
 			}		
 		})
-		.fail(function(jqXHR, error, errorThrown){
+		.fail(function(jqXHR, error, errorThrown){			
 			if(jqXHR.status == 404) {
-				alert("Username " + username + " not found.");				
+				$("#jamResults").html("<p class='info'>Username '" + username + "' not found.</p>");			
 			} else {
-				alert("An error occurred. Please try again later.");
+				$("#jamResults").html("<p class='info'>An error occurred. Please try again later.</p>");
 			}
+			resetResultFields();
 		});		
 	}
 
@@ -122,7 +123,7 @@ $(document).ready(function(){
 				return;
 			} 
 			/* Case: Multiple pages of jams */
-			else {
+			else {				
 				jamPage = getRandomInt(1, totalJamPages);
 
 				/* Case: Last page of jams */
@@ -131,9 +132,12 @@ $(document).ready(function(){
 
 					if(totalJamsLastPage < jamsToDisplay) {
 						jamPage -= 1;
+						console.log("Reached Case Multiple Pages - Last Page Not Enough");
 					} else {
 						maxIndex = totalJamsLastPage - 1;
-						setJamIndices(maxIndices, maxIndex);
+						setJamIndices(maxIndices, maxIndex);		
+						console.log("Reached Case Multiple Pages - Last Page");	
+						console.log("Page: ", jamPage, ", Indices: " , jamIndices);			
 						return;
 					}
 				} 
@@ -141,6 +145,7 @@ $(document).ready(function(){
 				/* Case: Jam page has enough jams */	
 				maxIndex = jamsPerPage - 1;
 				setJamIndices(maxIndices, maxIndex);
+				console.log("Reached Case Multiple Pages");
 				//return;
 			}			
 		}
@@ -165,6 +170,7 @@ $(document).ready(function(){
 		*/
 
 		var jam;
+		var jamDate;
 		var html = "";	
 
 		var request = { 
@@ -188,14 +194,21 @@ $(document).ready(function(){
 			jamIndices.forEach(function(index) {
 				console.log(results.jams[index]);
 				jam = results.jams[index];
+
+				/* Format jam date */
+				jamDate = jam.creationDate.slice(5,16);
 				
 				/* Construct jam info */
 				html += "<li><img src='" + jam.jamvatarMedium + "' class='jam-avatar' alt='" + jam.title + " jam avatar'>" + 
 					"<div class='jam-details'><p class='jam-title'>" + jam.title + "</p>" +
 					"<p class='jam-artist'>By " + jam.artist + "</p>" + 
-					"<p class='jam-date'>" + jam.creationDate + "</p>" +
-					"<p class='jam-caption'>" + jam.caption + "</p>" +
-					"<p class='jam-link'><a class='button' target='_blank' href='" + jam.url + "'>"  +
+					"<p class='jam-date'><strong>Jammed on:</strong> " + jamDate + "</p>";
+					
+					if(jam.caption) {
+						html += "<p class='jam-caption'>" + jam.caption + "</p>";
+					}
+					
+					html += "<p class='jam-link'><a class='button' target='_blank' href='" + jam.url + "'>"  +
 					"<i class='fa fa-play-circle-o fa-lg'></i> Listen on This Is My Jam</a></p>"
 					"</div></li>";
 			});
@@ -205,14 +218,13 @@ $(document).ready(function(){
 
 			/* Reset Variables */
 			resetResultFields();
+
+			console.log("displayPastJams end");	
+			console.log("--------------------------------------");
 		})
 		.fail(function(jqXHR, error, errorThrown){
 			alert("An error occurred. Please try again later.");
-		});
-		
-	
-		console.log("displayPastJams end");	
-		console.log("--------------------------------------");
+		});	
 	}
 
 });

@@ -162,31 +162,6 @@ ul#pastJams .jam-details {
 		margin-top: 1.25em;				
 	}
 
-/* Jam Results Controls Section */
-#jamResults .controls {
-	overflow: hidden;
-	padding-top: 1em;
-	padding-bottom: 1em;
-}
-
-#jamResults .controls i {
-	margin: 0 0.5em;
-}
-
-#jamResults .prev-button,
-#jamResults .next-button {
-	margin: 1em 0 1em 0;
-	padding: 0.5em 3em;
-}
-
-#jamResults .prev-button {
-	float: left;
-}
-
-#jamResults .next-button {
-	float: right;
-}
-
 /* Attribution and copyright */
 .attribution {
 	font-size: 0.75em;
@@ -194,6 +169,7 @@ ul#pastJams .jam-details {
 	text-align: center;
 }
 
+/* Media Queries */
 @media only screen and (max-width: 700px) {
 	ul#pastJams .jam-avatar {
 		max-width: 7.1875em;
