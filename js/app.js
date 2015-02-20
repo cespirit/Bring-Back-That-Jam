@@ -6,7 +6,8 @@ $(document).ready(function(){
 	var jamPage = -1;
 	var jamIndices = [];
 	var username = "";
-	var key = "1155729500c504209f43e65fd110766512213181";
+	var key = "b13319a1ddf4bc990836c02d435563b314f88946";
+
 		
 	var isValidInput = function() {
 		return (username) ? true:false;
